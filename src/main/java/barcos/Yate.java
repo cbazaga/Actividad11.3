@@ -24,5 +24,9 @@ public class Yate extends Barco {
     public double factor(){
         return super.factor() + this.potencia + this.numeroDeCamarotes * MODULO;
     }
+    
+    public String toString(){
+        return super.toString()+", numero de camarotes: "+numeroDeCamarotes;
+    }
    
 }

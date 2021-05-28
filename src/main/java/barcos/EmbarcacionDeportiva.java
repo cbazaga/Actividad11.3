@@ -34,7 +34,7 @@ public class EmbarcacionDeportiva extends Barco{
 
     @Override
     public String toString() {
-        return super.toString()+",modulo: "+MODULO_DEPORTIVA+ ",potencia: "+potencia;
+        return super.toString()+",potencia: "+potencia;
     }
 
     

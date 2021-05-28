@@ -1,10 +1,83 @@
 <!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <html>
     <head>
-        <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Formulario nuevo barco</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <style>
+            input,select{
+                margin-bottom: 1em;
+            }
+        </style>
     </head>
-    <body>
-        <h1>Hello World!</h1>
+    <body onload="cambiarInputs()">
+        <nav class="navbar navbar-light bg-light justify-content-end">
+            <ul class="nav justify-content-end ">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="index.html">Alta de barcos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="listaBarcos.jsp">Lista de barcos</a>
+                </li>
+            </ul>
+        </nav>
+
+        <h1 class="text-center">Alta de nuevo barco</h1>
+        <form style="width:50%; min-width: 450px; margin: 0 auto;" method="post" action="addBarco">
+            <label for="matricula" class="form-label">Matrícula: </label>
+            <input class="form-control" type="text" name="matricula" id="matricula" required="required" pattern="[0-9]{5}" placeholder="12345"/>
+            <label for="eslora" class="form-label">Eslora: </label>
+            <input class="form-control" type="text" name="eslora" id="eslora" required="required" pattern="[0-9]+.?[0-9]*" placeholder="1.57"/>
+            <label for="anyoFabricacion" class="form-label">Año de fabricación: </label>
+            <input class="form-control" type="text" name="anyoFabricacion" id="anyoFabricacion" required="required" pattern="[0-9]{4}" placeholder="2021"/>
+            <label for="tipo" class="form-label">Tipo de barco: </label>
+            <select class="form-select" id="tipo" name="tipo" onchange="cambiarInputs()">
+                <option value="velero">Velero</option>
+                <option value="yate">Yate</option>
+                <option value="deportiva">Embarcación deportiva</option>
+            </select>
+            <label for="potencia" class="form-label">Potencia: </label>
+            <input class="form-control" type="text" name="potencia" id="potencia"  pattern="[0-9]+" placeholder="20"/>
+            <label for="camarotes" class="form-label">Número de camarotes: </label>
+            <input class="form-control" type="text" name="camarotes" id="camarotes" pattern="[0-9]+" placeholder="2"/>
+            <label for="mastiles" class="form-label">Número de mástiles: </label>
+            <input class="form-control" type="text" name="mastiles" id="mastiles" pattern="[0-9]+" placeholder="3"/>
+            <input class="btn btn-primary" type="submit" value="Añadir" />
+
+        </form>
+        <script>
+
+            function cambiarInputs() {
+                var seleccion = document.getElementById("tipo").value;
+                document.getElementById("potencia").removeAttribute("disabled");
+                document.getElementById("potencia").value = "";
+                document.getElementById("camarotes").removeAttribute("disabled");
+                document.getElementById("camarotes").value = "";
+                document.getElementById("mastiles").removeAttribute("disabled");
+                document.getElementById("mastiles").value = "";
+                if (seleccion === "deportiva") {
+                    bloquear("camarotes");
+                    bloquear("mastiles");
+                } else if (seleccion === "velero") {
+                    bloquear("camarotes");
+                    bloquear("potencia");
+                } else {
+                    bloquear("mastiles");
+                }
+
+
+            }
+
+            function bloquear(elemento) {
+                document.getElementById(elemento).value = "0";
+                document.getElementById(elemento).setAttribute("disabled", "disabled");
+            }
+        </script>
     </body>
 </html>

@@ -24,5 +24,9 @@ public class Velero extends Barco {
         return super.factor() + this.numeroDeMastiles * MODULO_MASTILES;
     }
     
+    public String toString(){
+        return super.toString()+", numero de mástiles: "+numeroDeMastiles;
+    }
+    
     
 }
