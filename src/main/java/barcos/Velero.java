@@ -18,6 +18,10 @@ public class Velero extends Barco {
         super(matricula, eslora, anyoFabricacion);
         this.numeroDeMastiles = numeroDeMastiles;
     }
+
+    public String getNumeroDeMastiles() {
+        return String.valueOf(numeroDeMastiles);
+    }
     
     @Override
     public double factor(){

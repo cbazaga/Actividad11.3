@@ -44,8 +44,8 @@ public class Barco {
     }
     
     public static Barco buscar(ArrayList<Barco> lista, int matricula){
-        for (Barco barco : lista) {
-            if (String.valueOf(matricula).equals(barco.getMatricula())) return barco;
+        for (int i=0; i<lista.size();i++) {
+            if (lista.get(i).matricula==matricula) return lista.get(i);
         }
         return null;
     }
@@ -53,6 +53,18 @@ public class Barco {
     @Override
     public String toString() {
         return ("Matrícula: "+matricula+", eslora: "+eslora+", año de fabricación: "+anyoFabricacion);
+    }
+    
+    public String getPotencia(){
+        return "-";
+    }
+    
+    public String getNumeroDeMastiles(){
+        return "-";
+    }
+    
+    public String getNumeroDeCamarotes() {
+        return "-";
     }
     
 }

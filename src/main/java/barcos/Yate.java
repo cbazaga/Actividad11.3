@@ -28,5 +28,21 @@ public class Yate extends Barco {
     public String toString(){
         return super.toString()+", numero de camarotes: "+numeroDeCamarotes;
     }
+
+    @Override
+    public String getNumeroDeMastiles() {
+        return super.getNumeroDeMastiles(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getPotencia() {
+        return super.getPotencia(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String getNumeroDeCamarotes() {
+        return String.valueOf(numeroDeCamarotes);
+    }
+    
+    
    
 }

@@ -6,6 +6,7 @@
 package servlets;
 
 import barcos.Barco;
+import barcos.EmbarcacionDeportiva;
 import barcos.Velero;
 import barcos.Yate;
 import java.io.IOException;
@@ -38,19 +39,20 @@ public class addBarco extends HttpServlet {
         try ( PrintWriter out = response.getWriter()) {
             request.setCharacterEncoding("utf-8");
             HttpSession miSesion = request.getSession();
-            if(miSesion.isNew()){
-                ArrayList<Barco> barcos = new ArrayList();
-            }
+            ArrayList<Barco> barcos= new ArrayList<>();
+            Barco barco=null;
+            if(miSesion.isNew()) miSesion.setAttribute("arraybarcos", barcos);
+            else barcos=(ArrayList<Barco>) miSesion.getAttribute("arraybarcos");
             int potencia =0;
             int mastil=0;
             int camarotes=0;
             int matricula = Integer.parseInt(request.getParameter("matricula"));
             double eslora = Double.parseDouble(request.getParameter("eslora"));
             int anyofabricacion = Integer.parseInt(request.getParameter("anyoFabricacion"));
+            boolean okey=true;
             String tipo = request.getParameter("tipo");
             try{
                 if(matricula<10000 || matricula>99999 || eslora<=0 || eslora >1000 || anyofabricacion<=0 || anyofabricacion>2021) throw new Exception();
-                Barco barco;
                 
                 switch(tipo) {
                     case "velero":
@@ -64,23 +66,36 @@ public class addBarco extends HttpServlet {
                     case "yate":
                         potencia = Integer.parseInt(request.getParameter("potencia"));
                         camarotes = Integer.parseInt("camarotes");
-                        if(potencia<=0) throw new Exception();
+                        if(potencia<=0 || camarotes<0) throw new Exception();
                         barco = new Yate(potencia, camarotes, matricula, eslora, anyofabricacion);
                         break;
                         
                     case "deportiva":
                         potencia = Integer.parseInt(request.getParameter("potencia"));
-                        out.println(potencia);
+                        if(potencia<=0) throw new Exception();
+                        barco = new EmbarcacionDeportiva(potencia, matricula, eslora, anyofabricacion);
+                        break;
                         
-                       
-                    default:out.println("Error de switch");
+                    default: throw new Exception();
                 }
+                if(barco==null) throw new Exception(); //caso en el cual no se habría instanciado el barco.
             }
             catch(Exception e){
                 out.println("<p>Error de validación de datos</p>");
                 out.println("<a href=\"index.html\">Volver al menú principal</a>");
             }
-            out.println("Llega al final");
+            
+                if (Barco.buscar(barcos, matricula)!=null)  okey=false; //comprobar si el barco ha sido insertado en el arraylist.
+                else{
+                    barcos.add(barco);
+                }
+                request.setAttribute("okey", okey);
+                request.getRequestDispatcher("listabarcos.jsp").forward(request, response);
+            
+            
+            
+            
+            
             
         }
     }

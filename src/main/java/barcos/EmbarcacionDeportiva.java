@@ -28,8 +28,8 @@ public class EmbarcacionDeportiva extends Barco{
         return MODULO_DEPORTIVA;
     }
 
-    public int getPotencia() {
-        return potencia;
+    public String getPotencia() {
+        return String.valueOf(potencia);
     }
 
     @Override
