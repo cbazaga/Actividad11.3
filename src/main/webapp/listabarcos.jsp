@@ -21,9 +21,9 @@
     <body>
         <% 
             boolean okey = (boolean)request.getAttribute("okey");
-            if(okey == false){
-            out.print("<p>Ese barco ya ha sido añadido.</p> <a href=\"index.html\">Volver al menú principal </a>");
-        }
+            String mensaje = (String)request.getAttribute("mensaje");
+            if(okey == false) out.print("<p>Ese barco ya ha sido añadido.</p> <a href=\"index.html\">Volver al menú principal </a>");
+            else if(mensaje == "error") out.print("<p>Ha habido un error.</p> <a href=\"index.html\">Volver al menú principal </a>");
         else{
         %>
         <% ArrayList<Barco> barcos = (ArrayList<Barco>)request.getSession().getAttribute("arraybarcos"); %>
@@ -35,7 +35,7 @@
             <tr>
                 <% 
                 for(int i=0; i<barcos.size();i++){
-                    out.print(" <td>"+barcos.get(i).getClass().getSimpleName()+"</td> <td>"+barcos.get(i).getMatricula()+"</td> <td>"+barcos.get(i).getEslora()+"</td> <td>"+ barcos.get(i).getAnyoFabricacion()+"</td> <td>");
+    out.print(" <td>"+barcos.get(i).getClass().getSimpleName()+"</td> <td>"+barcos.get(i).getMatricula()+"</td> <td>"+barcos.get(i).getEslora()+"</td> <td>"+ barcos.get(i).getAnyoFabricacion()+"</td> <td>"+ barcos.get(i).getPotencia()+" </td> <td> "+barcos.get(i).getNumeroDeCamarotes()+" </td> <td> "+barcos.get(i).getNumeroDeMastiles()+" </td> <td> <a href=\"simulador.jsp?matricula="+barcos.get(i).getMatricula()+"\">Simular alquiler</a></td>");
                 }%>
             </tr>
         </table>

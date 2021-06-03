@@ -50,6 +50,7 @@ public class addBarco extends HttpServlet {
             double eslora = Double.parseDouble(request.getParameter("eslora"));
             int anyofabricacion = Integer.parseInt(request.getParameter("anyoFabricacion"));
             boolean okey=true;
+            String stringTipo = null;
             String tipo = request.getParameter("tipo");
             try{
                 if(matricula<10000 || matricula>99999 || eslora<=0 || eslora >1000 || anyofabricacion<=0 || anyofabricacion>2021) throw new Exception();
@@ -61,6 +62,7 @@ public class addBarco extends HttpServlet {
                         if(mastil<=0 || mastil>50) throw new Exception();
                         
                         barco = new Velero(mastil, matricula, eslora, anyofabricacion);
+                        request.setAttribute("tipobarco", "velero");
                         break;
                     
                     case "yate":
@@ -68,12 +70,14 @@ public class addBarco extends HttpServlet {
                         camarotes = Integer.parseInt("camarotes");
                         if(potencia<=0 || camarotes<0) throw new Exception();
                         barco = new Yate(potencia, camarotes, matricula, eslora, anyofabricacion);
+                        request.setAttribute("tipobarco", "yate");
                         break;
                         
                     case "deportiva":
                         potencia = Integer.parseInt(request.getParameter("potencia"));
                         if(potencia<=0) throw new Exception();
                         barco = new EmbarcacionDeportiva(potencia, matricula, eslora, anyofabricacion);
+                        request.setAttribute("tipobarco", "deportiva");
                         break;
                         
                     default: throw new Exception();

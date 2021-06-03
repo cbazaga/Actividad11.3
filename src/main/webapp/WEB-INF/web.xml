@@ -4,9 +4,17 @@
         <servlet-name>addBarco</servlet-name>
         <servlet-class>servlets.addBarco</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>calcularAlquiler</servlet-name>
+        <servlet-class>servlets.calcularAlquiler</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>addBarco</servlet-name>
         <url-pattern>/addBarco</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>calcularAlquiler</servlet-name>
+        <url-pattern>/calcularAlquiler</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
