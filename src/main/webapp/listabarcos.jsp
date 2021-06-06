@@ -23,7 +23,6 @@
             boolean okey = (boolean)request.getAttribute("okey");
             String mensaje = (String)request.getAttribute("mensaje");
             if(okey == false) out.print("<p>Ese barco ya ha sido añadido.</p> <a href=\"index.html\">Volver al menú principal </a>");
-            else if(mensaje == "error") out.print("<p>Ha habido un error.</p> <a href=\"index.html\">Volver al menú principal </a>");
         else{
         %>
         <% ArrayList<Barco> barcos = (ArrayList<Barco>)request.getSession().getAttribute("arraybarcos"); %>

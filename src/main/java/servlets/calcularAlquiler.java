@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import barcos.Alquiler;
 import barcos.Barco;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -35,21 +36,28 @@ public class calcularAlquiler extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             HttpSession sesion2 = request.getSession();
-            String nombre = (String)request.getAttribute("nombre");
-            String dni = (String)request.getAttribute("dni");
-            int diasocupacion = Integer.parseInt(request.getParameter("diasOcupacion"));
-            int posicionamarre = Integer.parseInt(request.getParameter("posicion"));
-            int matricula = 0;
-            matricula = Integer.parseInt(request.getParameter("matricula"));
+            int matricula = Integer.parseInt(request.getParameter("matricula")); //bien
             ArrayList<Barco> lista = (ArrayList<Barco>) sesion2.getAttribute("arraybarcos");
-            if(lista == null || Barco.buscar(lista, matricula)==null) {
-                request.setAttribute("mensaje", "error");
-                request.getRequestDispatcher("listabarcos.jsp");
+            String nombre=null;
+            String dni=null;
+            int diasocupacion=0;
+            int posicionamarre=0;
+            try{
+            if(lista == null || Barco.buscar(lista, matricula)!=null) {
+                throw new Exception();
             }
-            
-            
-            
-            
+            nombre = String.valueOf(request.getParameter("nombre"));//bien
+            dni = String.valueOf(request.getParameter("dni"));//bien
+            diasocupacion = Integer.parseInt(request.getParameter("diasOcupacion"));//bien
+            posicionamarre = Integer.parseInt(request.getParameter("posicion"));//bien  
+            }
+            catch(Exception e){
+                request.setAttribute("mensaje", "error");
+                request.getRequestDispatcher("mostrarAlquiler.jsp").forward(request, response);
+            }
+            request.setAttribute("alquiler", new Alquiler(nombre, dni, diasocupacion, posicionamarre, Barco.buscar(lista, matricula)));
+            request.setAttribute("mensaje", "Simulacion completada");
+            request.getRequestDispatcher("mostrarAlquiler.jsp").forward(request, response);
         }
     }
 
